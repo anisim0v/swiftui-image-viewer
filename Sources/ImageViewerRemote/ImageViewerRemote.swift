@@ -23,7 +23,7 @@ public struct ImageViewerRemote: View {
         _httpHeaders = State(initialValue: httpHeaders)
         _disableCache = State(initialValue: disableCache)
         self.aspectRatio = aspectRatio
-        if viewerShown == true{
+        if _viewerShown {
             loader = ImageLoader(url: imageURL, httpHeaders: httpHeaders)
         }
     }
