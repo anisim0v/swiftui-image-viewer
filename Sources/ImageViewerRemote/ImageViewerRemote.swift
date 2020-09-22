@@ -329,11 +329,13 @@ class ImageLoader: ObservableObject {
     }
 
     func load() {
-        cancellable = URLSession.shared.dataTaskPublisher(for: getURLRequest(url: self.url.wrappedValue, headers: self.headers))
+        if self.url.wrappedValue != ""{
+            cancellable = URLSession.shared.dataTaskPublisher(for: getURLRequest(url: self.url.wrappedValue, headers: self.headers))
             .map { UIImage(data: $0.data) }
             .replaceError(with: nil)
             .receive(on: DispatchQueue.main)
             .assign(to: \.image, on: self)
+        }
     }
     
     func cancel() {
