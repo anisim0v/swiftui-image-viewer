@@ -23,9 +23,8 @@ public struct ImageViewerRemote: View {
         _httpHeaders = State(initialValue: httpHeaders)
         _disableCache = State(initialValue: disableCache)
         self.aspectRatio = aspectRatio
-        if _viewerShown {
-            loader = ImageLoader(url: imageURL, httpHeaders: httpHeaders)
-        }
+        loader = ImageLoader(url: imageURL, httpHeaders: httpHeaders)
+        
     }
     
     func getURLRequest(url: String, headers: [String: String]?) -> URLRequest {
@@ -330,7 +329,7 @@ class ImageLoader: ObservableObject {
     }
 
     func load() {
-        if self.url.wrappedValue != ""{
+        if self.url.wrappedValue != "" && viewerShown{
             cancellable = URLSession.shared.dataTaskPublisher(for: getURLRequest(url: self.url.wrappedValue, headers: self.headers))
             .map { UIImage(data: $0.data) }
             .replaceError(with: nil)
