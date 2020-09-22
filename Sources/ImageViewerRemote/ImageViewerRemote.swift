@@ -23,8 +23,9 @@ public struct ImageViewerRemote: View {
         _httpHeaders = State(initialValue: httpHeaders)
         _disableCache = State(initialValue: disableCache)
         self.aspectRatio = aspectRatio
-        
-        loader = ImageLoader(url: imageURL, httpHeaders: httpHeaders)
+        if viewerShow{
+            loader = ImageLoader(url: imageURL, httpHeaders: httpHeaders)
+        }
     }
     
     func getURLRequest(url: String, headers: [String: String]?) -> URLRequest {
