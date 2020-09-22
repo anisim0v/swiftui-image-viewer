@@ -24,14 +24,14 @@ public struct ImageViewerRemote: View {
         _disableCache = State(initialValue: disableCache)
         self.aspectRatio = aspectRatio
         self._viewerShown = viewerShown
-        if self.viewerShown{
-            loader = ImageLoader(url: imageURL, httpHeaders: httpHeaders)
-        }
+        loader = ImageLoader(url: imageURL, httpHeaders: httpHeaders)
+        
         
     }
     
     func getURLRequest(url: String, headers: [String: String]?) -> URLRequest {
         let url = URL(string: url)!
+        
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         
@@ -73,6 +73,7 @@ public struct ImageViewerRemote: View {
                     
                     VStack {
                         if(self.disableCache == nil || self.disableCache == false) {
+                            if self.viewerShown == true {
                             URLImage(getURLRequest(url: self.imageURL, headers: self.httpHeaders)) { proxy in
                             proxy.image
                                 .resizable()
@@ -94,6 +95,7 @@ public struct ImageViewerRemote: View {
                                     }
                                 )
                             }
+                        }
                         }
                         else {
                             if loader.image != nil {
