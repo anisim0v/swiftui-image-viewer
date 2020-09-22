@@ -57,7 +57,8 @@ public struct ImageViewerRemote: View {
                 ZStack {
                     VStack {
                         HStack {
-                            Button(action: { self.viewerShown = false }) {
+                            Button(action: { self.viewerShown = false 
+                                           self.imageURL = "" }) {
                                 Image(systemName: "xmark")
                                     .foregroundColor(Color(UIColor.white))
                                     .font(.system(size: UIFontMetrics.default.scaledValue(for: 24)))
@@ -89,6 +90,7 @@ public struct ImageViewerRemote: View {
                                     .onEnded { value in
                                         if((abs(self.dragOffset.height) + abs(self.dragOffset.width) > 570) || ((abs(self.dragOffsetPredicted.height)) / (abs(self.dragOffset.height)) > 3) || ((abs(self.dragOffsetPredicted.width)) / (abs(self.dragOffset.width))) > 3) {
                                             self.viewerShown = false
+                                            self.imageURL = ""
                                             return
                                         }
                                         self.dragOffset = .zero
@@ -113,6 +115,7 @@ public struct ImageViewerRemote: View {
                                         .onEnded { value in
                                             if((abs(self.dragOffset.height) + abs(self.dragOffset.width) > 570) || ((abs(self.dragOffsetPredicted.height)) / (abs(self.dragOffset.height)) > 3) || ((abs(self.dragOffsetPredicted.width)) / (abs(self.dragOffset.width))) > 3) {
                                                 self.viewerShown = false
+                                                self.imageURL = ""
                                                 return
                                             }
                                             self.dragOffset = .zero
